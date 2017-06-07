@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 	// End of program
 	return 0;
 }
-// prints a 1 indexed integer array, each number on a new line
+// prints a 1 indexed integer array, each number separated by a space
 void printArray(int* array, int start, int end)
 {
 	for(int i = start; i <= end; i++)
