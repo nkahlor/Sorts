@@ -10,11 +10,11 @@ OBJ = main.o sorts.o
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 #link stage -- prog = name of executable. You can change this.
-run: $(OBJ)
+run.exe: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 #target for cleaning -- remove object and executable files
 clean:
 	rm *.o
-	rm run 
+	rm run.exe
 
