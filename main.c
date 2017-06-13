@@ -64,7 +64,7 @@ void printMenu()
 		printf("\nS:\tExit the program\nQ:\tQuicksort\n");
 		printf("I:\tInsertion Sort\nM:\tMerge Sort\n>> ");
 }
-// prints a 1 indexed integer array, each number on a new line
+// prints a 1 indexed integer array, each number on a
 // newline after 10 elements
 void printArray(int* array, int start, int end)
 {
