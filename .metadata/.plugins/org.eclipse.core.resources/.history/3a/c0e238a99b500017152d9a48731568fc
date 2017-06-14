@@ -19,9 +19,6 @@ int main(int argc, char* argv[])
 	
 	do
 	{
-			// declare clock related variables
-			clock_t startI, endI, startQ, endQ, startM, endM;
-
 			printf("How large would you like the array to be?\n>> ");
 			scanf("%d", &arraySize);
 			// generate a random array
@@ -51,20 +48,21 @@ int main(int argc, char* argv[])
 						printf("\n");
 							break;
 					case 'A': // execute all of the algorithms, and compare times
+						clock_t startI;
 						startI = clock(); // begin insertion sort
 						sortedArray = insertionSort(inputArray, 1, arraySize);
-						endI = clock(); // end insertion sort
-						double insertionTime = (double)(endI - startI) / CLOCKS_PER_SEC;
+						clock_t endI = clock(); // end insertion sort
+						double insertionTime = (endI - startI) / CLOCKS_PER_SEC;
 
-						startQ = clock(); 
+						clock_t startQ = clock(); 
 						sortedArray = quickSort(inputArray, 1, arraySize);
-						endQ = clock();
-						double quickTime = (double)(endQ - startQ) / CLOCKS_PER_SEC;
+						clock_t endQ = clock();
+						double quickTime = (endQ - startQ) / CLOCKS_PER_SEC;
 
-						startM = clock(); 
+						clock_t startM = clock(); 
 						sortedArray = mergeSort(inputArray, 1, arraySize);
-						endM = clock();
-						double mergeTime = (double)(endM - startM) / CLOCKS_PER_SEC;
+						clock_t endM = clock();
+						double mergeTime = (endM - startM) / CLOCKS_PER_SEC;
 
 						printf("\nTimes:\n-----------------\n");
 						printf("Insertion:\t%f seconds\nQuick:\t %f seconds\nMerge:\t%f seconds\n", insertionTime, quickTime, mergeTime);
@@ -79,13 +77,11 @@ int main(int argc, char* argv[])
 	// End of program
 	return 0;
 }
-
 void printMenu()
 {
 		printf("\nS:\tExit the program\nQ:\tQuicksort\n");
-		printf("I:\tInsertion Sort\nM:\tMerge Sort\nA:\tRun them all and report times\n>> ");
+		printf("I:\tInsertion Sort\nM:\tMerge Sort\n>> ");
 }
-
 // prints a 1 indexed integer array, each number on a
 // newline after 10 elements
 void printArray(int* array, int start, int end)
