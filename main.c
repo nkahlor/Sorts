@@ -5,6 +5,7 @@
 #include "sorts.h"
 
 // Prototypes
+int random_int(int upper);
 void printArray(int* array, int start, int end);
 int* generateArray(int size);
 void printMenu();
@@ -14,15 +15,15 @@ int main(int argc, char* argv[])
 	char menuChoice; // recieved from user input	
 	int running = 1; // boolean to determine if progam loop should be executed
 	int arraySize;	
-	int* inputArray;
-	int* sortedArray;
+	int* inputArray = NULL;
+	int* sortedArray = NULL;
 	
 	do
 	{
 			// declare clock related variables
 			clock_t startI, endI, startQ, endQ, startM, endM;
 
-			printf("How large would you like the array to be?\n>> ");
+			printf("\nHow large would you like the array to be?\n>> ");
 			scanf("%d", &arraySize);
 			// generate a random array
 			inputArray = generateArray(arraySize);
@@ -36,6 +37,7 @@ int main(int argc, char* argv[])
 						running = 0; 
 					  		break;
 					case 'Q': // execute quicksort
+
 						sortedArray =  quickSort(inputArray, 1, arraySize);
 						printArray(sortedArray, 1, arraySize);
 						printf("\n");
@@ -66,8 +68,10 @@ int main(int argc, char* argv[])
 						endM = clock();
 						double mergeTime = (double)(endM - startM) / CLOCKS_PER_SEC;
 
-						printf("\nTimes:\n-----------------\n");
-						printf("Insertion:\t%f seconds\nQuick:\t %f seconds\nMerge:\t%f seconds\n", insertionTime, quickTime, mergeTime);
+						printf("\nTimes:\n--------------------------------------------------------\n");
+						printf("Insertion:%20f seconds\nQuick:%24f seconds\nMerge:%24f seconds\n", insertionTime, quickTime, mergeTime);
+
+						
 							break;
 			}
 	} while(running == 1);
@@ -79,7 +83,6 @@ int main(int argc, char* argv[])
 	// End of program
 	return 0;
 }
-
 void printMenu()
 {
 		printf("\nS:\tExit the program\nQ:\tQuicksort\n");
@@ -103,7 +106,20 @@ void printArray(int* array, int start, int end)
 	printf("\n");
 
 }
-// generates an array randomly filled with values between 0 and 500
+
+int random_int(int upper)
+{
+	int divisor = RAND_MAX / (upper + 1);
+	int number;
+
+	do
+	{
+		number = rand() / divisor;
+	} while(number > upper);
+
+	return number;
+}
+
 int* generateArray(int size)
 {
 	srand(time(NULL));
@@ -111,7 +127,7 @@ int* generateArray(int size)
 	if(randomArray == NULL)
 		abort();
 	for(int i = 1; i <= size; i++)
-		randomArray[i] = rand() % 500; 
+		randomArray[i] = random_int(size*size); 
 
 	return randomArray;
 }

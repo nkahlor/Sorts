@@ -1,41 +1,59 @@
 #include "sorts.h"
 
+// swaps by reference without the use of temp variables
+void swap_notemp(int *x, int *y)
+{
+	// if the values happen to be the same, no swap is necessary
+	if(*x == *y)
+		return;
+	// swapping with bitwise xor
+	*x = *x ^ *y;
+	*y = *x ^ *y;
+	*x = *x ^ *y;
+}
+
+// tail recursion so that stack is bounded by O(lgn)
 int* quickSort(int* array, int start, int end)
 {
 	int q;
 	int* sortedArray = array;
-	if(start < end)
+	while(start < end)
 	{
 		q = partition(sortedArray, start, end);
-		quickSort(sortedArray, start, q - 1);
-		quickSort(sortedArray, q + 1, end);
+
+		if(start - q < end - q)
+		{
+			quickSort(sortedArray, start, q - 1);
+			start = q + 1;
+		}
+		else
+		{
+			quickSort(sortedArray, q + 1, end);
+			end = q - 1;
+		}
 	}
 	return sortedArray;
 }
+
 /* Subroutine for quicksort  */
 int partition(int* array, int start, int end)
 {
 	int key = array[end];
 	int i = start - 1;
-	int temp;
+	
 	for(int j = start; j <= end - 1; j++)
 	{
 		if(array[j] <= key)
 		{
 			i++;
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
+			swap_notemp(&array[i], &array[j]);
 		}
 	}
 
-	temp = array[i + 1];
-	array[i + 1] = array[end];
-	array[end] = temp;
+	swap_notemp(&array[i + 1], &array[end]);
 
 	return i + 1;
 }
-/* ----------------end of quicksort---------------------------------  */
 
 int* insertionSort(int* array, int start, int end)
 	{
@@ -54,7 +72,7 @@ int* insertionSort(int* array, int start, int end)
 			}
 		return sortedArray;
 	}
-/* --------------------end of insertion sort ------------------------- */
+
 int* mergeSort(int* array, int start, int end)
 	{
 		int* sortedArray = array;
