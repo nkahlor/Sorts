@@ -57,10 +57,16 @@ int main(int argc, char* argv[])
 						endI = clock(); // end insertion sort
 						double insertionTime = (double)(endI - startI) / CLOCKS_PER_SEC;
 
+						// re-generate an array
+						inputArray = generateArray(arraySize);
+
 						startQ = clock();
 						quickSort(inputArray, 1, arraySize);
 						endQ = clock();
 						double quickTime = (double)(endQ - startQ) / CLOCKS_PER_SEC;
+
+						// re-generate an array
+						inputArray = generateArray(arraySize);
 
 						startM = clock(); 
 						mergeSort(inputArray, 1, arraySize);
@@ -127,3 +133,13 @@ int* generateArray(int size)
 
 	return randomArray;
 }
+
+
+		
+
+
+
+
+
+
+
