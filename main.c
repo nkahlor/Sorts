@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
 	int running = 1; // boolean to determine if progam loop should be executed
 	int arraySize;	
 	int* inputArray = NULL;
-	int* sortedArray = NULL;
 	
 	do
 	{
@@ -38,47 +37,44 @@ int main(int argc, char* argv[])
 					  		break;
 					case 'Q': // execute quicksort
 
-						sortedArray =  quickSort(inputArray, 1, arraySize);
-						printArray(sortedArray, 1, arraySize);
+						quickSort(inputArray, 1, arraySize);
+						printArray(inputArray, 1, arraySize);
 						printf("\n");
 				   			break;
 					case 'I': // execute insertion sort
-						sortedArray = insertionSort(inputArray, 1, arraySize);
-						printArray(sortedArray, 1, arraySize);
+						insertionSort(inputArray, 1, arraySize);
+						printArray(inputArray, 1, arraySize);
 						printf("\n");
 							break;
 					case 'M': // execute merge sort
-						sortedArray = mergeSort(inputArray, 1, arraySize);
-						printArray(sortedArray, 1, arraySize);
+						mergeSort(inputArray, 1, arraySize);
+						printArray(inputArray, 1, arraySize);
 						printf("\n");
 							break;
 					case 'A': // execute all of the algorithms, and compare times
 						startI = clock(); // begin insertion sort
-						sortedArray = insertionSort(inputArray, 1, arraySize);
+						insertionSort(inputArray, 1, arraySize);
 						endI = clock(); // end insertion sort
 						double insertionTime = (double)(endI - startI) / CLOCKS_PER_SEC;
 
-						startQ = clock(); 
-						sortedArray = quickSort(inputArray, 1, arraySize);
+						startQ = clock();
+						quickSort(inputArray, 1, arraySize);
 						endQ = clock();
 						double quickTime = (double)(endQ - startQ) / CLOCKS_PER_SEC;
 
 						startM = clock(); 
-						sortedArray = mergeSort(inputArray, 1, arraySize);
+						mergeSort(inputArray, 1, arraySize);
 						endM = clock();
 						double mergeTime = (double)(endM - startM) / CLOCKS_PER_SEC;
 
 						printf("\nTimes:\n--------------------------------------------------------\n");
 						printf("Insertion:%20f seconds\nQuick:%24f seconds\nMerge:%24f seconds\n", insertionTime, quickTime, mergeTime);
-
-						
 							break;
 			}
 	} while(running == 1);
 
 	// Memory Management
 	free(inputArray);
-	free(sortedArray);
 
 	// End of program
 	return 0;

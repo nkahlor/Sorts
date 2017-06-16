@@ -13,26 +13,24 @@ void swap_notemp(int *x, int *y)
 }
 
 // tail recursion so that stack is bounded by O(lgn)
-int* quickSort(int* array, int start, int end)
+void quickSort(int* array, int start, int end)
 {
 	int q;
-	int* sortedArray = array;
 	while(start < end)
 	{
-		q = partition(sortedArray, start, end);
+		q = partition(array, start, end);
 
 		if(start - q < end - q)
 		{
-			quickSort(sortedArray, start, q - 1);
+			quickSort(array, start, q - 1);
 			start = q + 1;
 		}
 		else
 		{
-			quickSort(sortedArray, q + 1, end);
+			quickSort(array, q + 1, end);
 			end = q - 1;
 		}
 	}
-	return sortedArray;
 }
 
 /* Subroutine for quicksort  */
@@ -55,37 +53,33 @@ int partition(int* array, int start, int end)
 	return i + 1;
 }
 
-int* insertionSort(int* array, int start, int end)
+void insertionSort(int* array, int start, int end)
 	{
-		int* sortedArray = array;
 		int key, i;
 		for(int j = 2; j <= end; j++)
 			{
-				key = sortedArray[j];
+				key = array[j];
 				i = j - 1;
-				while(i > 0 && sortedArray[i] > key)
+				while(i > 0 && array[i] > key)
 					{
-						sortedArray[i + 1] = sortedArray[i];
+						array[i + 1] = array[i];
 						i--;
 					}
-				sortedArray[i + 1] = key;
+				array[i + 1] = key;
 			}
-		return sortedArray;
 	}
 
-int* mergeSort(int* array, int start, int end)
+void mergeSort(int* array, int start, int end)
 	{
-		int* sortedArray = array;
 		int q;
 
 		if(start < end)
 		{
 			q = (start + end) / 2;
-			mergeSort(sortedArray, start, q);
-			mergeSort(sortedArray, q + 1, end);
-			merge(sortedArray, start, q, end);
+			mergeSort(array, start, q);
+			mergeSort(array, q + 1, end);
+			merge(array, start, q, end);
 		}
-		return sortedArray;
 	}
 
 /* subrouting for merge sort  */
